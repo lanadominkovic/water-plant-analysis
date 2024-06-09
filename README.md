@@ -1,29 +1,40 @@
-# Wastewater Treatment Plant (WWTP) Analysis
+## Enhancing Wastewater Treatment: A Machine Learning Approach
 
-## Overview
-This project focuses on recalculating data from a wastewater treatment plant, incorporating both original calculations and new data from the `signali3` dataset. The analysis aims to assess the performance of the treatment process, evaluate the quality of the effluent, and estimate the associated costs.
+### Overview
+This project introduces a Random Forest (RF) model aimed at predicting operational costs (OCI) and effluent quality (EQI) in wastewater treatment plants (WWTPs). The model not only excels in predictive accuracy but also provides comprehensive insights into the variables that impact the effectiveness and economic efficiency of WWTPs.
 
-## Data Inputs
-The analysis utilizes various input parameters related to the inflow and characteristics of the wastewater, including:
+### Key Results
+- **Effluent Quality Index (EQI):**
+  - **Training R²:** 0.987
+  - **Validation R²:** 0.911
+  - **Test R²:** 0.915
+- **Operational Cost Index (OCI):**
+  - **Training R²:** 0.994
+  - **Validation R²:** 0.956
+  - **Test R²:** 0.957
 
-- `dotok`: Daily inflow characteristics such as volume (`Q` in m³/d), temperature (`T` in °C), and concentrations of chemical oxygen demand (`COD` in g/m³), ammonium nitrogen (`NH4` in g/m³), total nitrogen (`TN` in g/m³), insoluble matter (`TSS` in g/m³), and total phosphorus (`TP` in g/m³).
-- `pretok`: Parameters related to the pretreatment process, including time (`t` in days) and volumes for different process streams.
-- `kisik`: Oxygen demand parameters at different stages of the treatment process.
-- `iztok`: Characteristics of the treated effluent, including its volume and contaminant concentrations.
-- `kvaliteta`: The environmental quality index (`EQI` in kgPU/d) indicating the quality of the effluent.
-- `stroski`: Cost estimates associated with the treatment process, including various operational costs.
+These results demonstrate the model's strong predictive performance and generalizability, capturing over 90% of the variation in the data.
 
-## Analysis Objective
-The goal is to understand the efficiency and effectiveness of the wastewater treatment process, identify areas for improvement, and provide insights into the environmental and economic impacts of the plant's operation.
+### Methodology
+- **Data Source:** Benchmark simulation model of the WWTP
+- **Data Points:** 8736 hourly averaged data points from a year's worth of 15-minute interval data
+- **Modeling Approach:** 
+  - Time delays ranging from 0 to 15 hours were introduced to account for potential delayed effects on EQI and OCI.
+  - The RF model was trained, validated, and tested on randomly split datasets (90% training, 10% testing).
 
-## Methods
+### Interpretability
+- **Feature Importance:** Analyzed using SHAP (Shapley Additive Explanations) values to ensure transparency and understand the impact of various input variables.
+- **Top Influential Features for EQI:** Wastewater temperature, influent flow rate, influent COD, NH4, TN, TSS, and control variables like Qintr and DO6.
+- **Top Influential Features for OCI:** Influents such as flow rate, COD, NH4, TN, TSS, and control variables including Quprimary, Qw, and DO6.
 
-The analysis of the wastewater treatment plant data employs a comprehensive approach combining data preprocessing, statistical analysis, and modeling to evaluate the efficiency and output quality of the treatment processes. Key steps in the analysis include:
+### Conclusion
+The model's robust performance in predicting EQI and OCI, coupled with its explainability through SHAP values, makes it a valuable tool for optimizing WWTP operations. This study's novel contributions include plant-wide consideration of operations, composite criteria for both EQI and OCI, and the use of interpretable machine learning models.
 
-- **Data Preprocessing**: Cleaning and structuring data for analysis, including handling missing values, normalizing data formats, and aggregating data from multiple sources.
-- **Statistical Analysis**: Examining the distribution and variance of key parameters to understand the characteristics of the wastewater input and treated effluent.
-- **Modeling**: Applying predictive models to estimate the performance of the treatment process under varying conditions. (Random Forests)
-- **Visualization**: Creating graphical representations of data trends, process efficiencies, and output quality to aid in interpretation and decision-making.
+### References
+- Breiman, L. (2001). "Random Forests," Machine Learning, 45(1), 5-32.
+- Lundberg, S. M., & Lee, S. I. (2017). "A Unified Approach to Interpreting Model Predictions," Proceedings of the 31st International Conference on Neural Information Processing Systems.
+- Mihály, N.B., et al. (2022). "Data-driven modelling based on artificial neural networks for predicting energy and effluent quality indices and wastewater treatment plant optimization," Optimization and Engineering, 23, 2235–2259.
 
-These methods are implemented using Python, utilizing libraries such as pandas for data manipulation, matplotlib and seaborn for data visualization, and scikit-learn for any machine learning-based analysis. The goal is to derive actionable insights that can inform both immediate operational decisions and long-term strategic planning for the wastewater treatment facility.
+For a detailed analysis, please refer to the full paper. (TBA when published)
+
 
